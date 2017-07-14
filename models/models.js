@@ -139,8 +139,20 @@ var restaurantSchema = mongoose.Schema({
   Latitude: Number,
   Longitude: Number,
   Price: Number,
-  OpenTime: Number,
-  ClosingTime: Number
+  Spots: Number,
+  IsOpen: Boolean,
+  ClosingTime: Date,
+  Food: [{
+    description: String,
+    photoUrl: String
+  }],
+  Reviews:[
+    {
+      rating: Number,
+      comment: String
+    }
+  ],
+  ContactInfo: Number,
 });
 
 restaurantSchema.methods.getReviews = function (restaurantId, callback){
