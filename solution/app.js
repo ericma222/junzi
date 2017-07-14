@@ -12,6 +12,7 @@ var auth = require('./routes/auth');
 var MongoStore = require('connect-mongo/es5')(session);
 var mongoose = require('mongoose');
 var app = express();
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -22,6 +23,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser('secretCat'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+var connect = process.env.MONGODB_URI || require('./models/connect');
+mongoose.connect(connect);
 
 // Passport stuff here
 
@@ -50,7 +53,7 @@ passport.deserializeUser(function(id, done) {
 // passport strategy
 passport.use(new LocalStrategy(function(username, password, done) {
     // Find the user with the given username
-    models.User.findOne({ email: username }, function (err, user) {
+    models.User.findOne({ username: username }, function (err, user) {
       // if there's an error, finish trying to authenticate (auth failed)
       if (err) {
         console.error(err);
@@ -105,5 +108,5 @@ app.use(function(err, req, res, next) {
   });
 });
 
-app.listen(3000)
+
 module.exports = app;

@@ -1,0 +1,42 @@
+<h4>Name: {{user.displayName}} </h4>
+
+
+<form action="/follow/{{user._id}}" method="post">
+  <input style="display: inline;" type="submit" value="Follow">
+</form>
+
+<h4>Email:</h4>
+<p>{{user.email}}</p>
+
+<h4>Address:</h4>
+<p>{{user.location}}</p>
+
+<h4>Reviews:</h4>
+{{#each reviews}}
+  {{this.RestaurantID.Name}} </br>
+  {{this.Stars}} </br>
+  {{this.Content}} <br></br>
+{{/each}}
+
+<h4>Following:</h4>
+{{#each following}}
+  <div>{{this.uid2.displayName}}
+  <form action="/unfollow/{{this.uid2._id}}" method="post">
+    <input style="display: inline;" type="submit" value="Unfollow">
+  </form>
+</div>
+{{/each}}
+
+<h4>Followers:</h4>
+{{#each followers}}
+  <p>{{this.uid1.displayName}}</p>
+  <form action="/unfollow/{{this.uid1._id}}" method="post">
+    <input style="display: inline;" type="submit" value="Unfollow">
+  </form>
+{{/each}}
+
+<h4>Reviews:</h4>
+{{#each reviews}}
+  {{this.stars}} </br>
+  {{this.content}} </br>
+{{/each}}

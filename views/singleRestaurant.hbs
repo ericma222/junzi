@@ -1,0 +1,23 @@
+{{! YOUR CODE HERE }}
+
+<h1> {{restaurant.Name}} </h1>
+
+<h4> Hours open: {{restaurant.OpenTime}} - {{restaurant.ClosingTime}} </h4> </br>
+
+<!-- <img src="https://maps.googleapis.com/maps/api/staticmap?center=37.776368,-122.4181693&markers=color:red|37.776368,-122.4181693&zoom=13&size=600x300&maptype=roadmap"> -->
+<img src="https://maps.googleapis.com/maps/api/staticmap?center={{restaurant.Latitude}},{{restaurant.Longitude}}&markers=color:red|{{restaurant.Latitude}},{{restaurant.Longitude}}&zoom=13&size=600x300&maptype=roadmap&key=AIzaSyCxFx9q1ZnpKc-GFPEQIINS9Og8t8kNKMk">
+<!-- <img src="https://maps.googleapis.com/maps/api/staticmap?center={{restaurant.Latitude}},{{restaurant.Latitude}}&zoom=15&size=600x300&maptype=roadmap&markers=color:red|{{restaurant.Latitude}},{{restaurant.Latitude}}"/> -->
+<!-- <img src = {{url}} > --> </br>
+<!-- Longitude: {{restaurant.Longitude}} </br>
+Latitude: {{restaurant.Latitude}} </br> -->
+Reviews:
+{{#each reviews}}
+  <h4>  <a href="/users/{{this.UserID._id}}">{{this.UserID.displayName}}</a> </br></h4>
+  {{this.Stars}} </br>
+  {{this.Content}} </br>
+{{/each}}
+
+
+<form method='get' action ='{{restaurant._id}}/review/new' >
+  <input type="submit" value="Add Review">
+</form>

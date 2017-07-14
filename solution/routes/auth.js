@@ -8,15 +8,6 @@ var models = require('../models/models');
 module.exports = function(passport) {
 
   // GET registration page
-  router.get('/', function(req, res) {
-    if (req.user) {
-      res.redirect('/restaurants')
-    }
-    else {
-      res.redirect('/login')
-    }
-  })
-
   router.get('/signup', function(req, res) {
     res.render('signup');
   });
@@ -27,20 +18,20 @@ module.exports = function(passport) {
   };
 
   router.post('/signup', function(req, res) {
+    // validation step
     if (!validateReq(req.body)) {
       return res.render('signup', {
         error: "Passwords don't match."
       });
     }
     var u = new models.User({
-      // Note: Calling the email form field 'username' here is intentional,
-      //    passport is expecting a form field specifically named 'username'.
-      //    There is a way to change the name it expects, but this is fine.
-      displayName: req.body.displayName,
-      email: req.body.username,
-      password: req.body.password
+      username: req.body.username,
+      password: req.body.password,
+      address: req.body.address,
+      displayName: req.body.displayName
     });
-
+    console.log("asd")
+    console.log(u)
     u.save(function(err, user) {
       if (err) {
         console.log(err);

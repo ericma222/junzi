@@ -1,0 +1,8 @@
+{{! YOUR CODE HERE }}
+<h1> Add a Review for {{restaurant.Name}} </h1>
+
+<form action='/restaurants/{{restaurant._id}}/review' method="post">
+  <textarea name = "content" placeholder="Write a review"></textarea> </br>
+  <input type="number" name = "stars" placeholder="Stars 1-5"> </br>
+  <input type="submit" value="Add Review">
+</form>

@@ -1,0 +1,7 @@
+{{! YOUR CODE HERE }}
+<h2> Users </h2> <br>
+
+{{#each users}}
+  <h4><a href="/users/{{this._id}}">{{this.displayName}}</a> </br></h4>
+  email: {{this.email}} <br></br>
+{{/each}}

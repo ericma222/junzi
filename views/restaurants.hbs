@@ -1,0 +1,12 @@
+{{! YOUR CODE HERE }}
+<h1> Restaurants </h1>
+
+{{#each restaurants}}
+  <h4><a href="/restaurants/{{this._id}}">{{this.Name}}</a> </h4> ${{this.Price}} </br>
+  Distance: 1 mi </br>
+{{/each}}
+</br>
+</br>
+<form action= '/restaurants/new'>
+  <input type="submit" value="Add Restaurant">
+</form>
