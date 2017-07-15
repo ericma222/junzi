@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <title>Responsive Table</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <link rel="stylesheet" href="css/tableStyle.css">
+
+
+</head>
+
+<body>
+  <nav class="navbar navbar-default" style="background-color: #3371FF; width: 100%;">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <!-- <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><img src = https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Yelp_Logo.svg/1200px-Yelp_Logo.svg.png style="height:33px"></a>
+    </div> -->
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <!-- <li><a href="/profile">Users</a></li>
+        <li><a href="/restaurants">Restaurants</a></li> -->
+      </ul>
+      <form class="navbar-form navbar-right" action='/logout' method='get'>
+        <!-- <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search Restaurants">
+        </div> -->
+        <!-- <button type="submit" class="btn btn-default">Submit</button> -->
+        <button type="submit" class="btn btn-default">Logout</button>
+
+      </form>
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+  </nav>
+  <h2>Customer List</h2>
+  <div class="table-users">
+   <div class="header">Users</div>
+
+   <table cellspacing="0">
+      <tr>
+         <th>Picture</th>
+         <th>Name</th>
+         <th>Phone</th>
+         <th width="230">Comments</th>
+      </tr>
+
+      <tr>
+         <td><img src="http://lorempixel.com/100/100/people/1" alt="" /></td>
+         <td>Jane Doe</td>
+         <td>01 800 2000</td>
+         <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. </td>
+      </tr>
+
+      <tr>
+         <td><img src="http://lorempixel.com/100/100/sports/2" alt="" /></td>
+         <td>John Doe</td>
+         <td>01 800 2000</td>
+         <td>Blanditiis, aliquid numquam iure voluptatibus ut maiores explicabo ducimus neque, nesciunt rerum perferendis, inventore.</td>
+      </tr>
+
+      <tr>
+         <td><img src="http://lorempixel.com/100/100/people/9" alt="" /></td>
+         <td>Jane Smith</td>
+         <td>01 800 2000</td>
+         <td> Culpa praesentium unde pariatur fugit eos recusandae voluptas.</td>
+      </tr>
+
+      <tr>
+         <td><img src="http://lorempixel.com/100/100/people/3" alt="" /></td>
+         <td>John Smith</td>
+         <td>01 800 2000</td>
+         <td>Aut voluptatum accusantium, eveniet, sapiente quaerat adipisci consequatur maxime temporibus quas, dolorem impedit.</td>
+      </tr>
+   </table>
+</div>
+
+<a class='btn btn-primary' href='/cook/restaurant'>Broadcast Meal</a>
+
+
+</body>
+</html>

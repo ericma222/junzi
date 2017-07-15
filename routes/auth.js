@@ -40,7 +40,7 @@ module.exports = function(passport) {
         return;
       }
       console.log(user);
-      if (user.userType === 'consumer') {
+      if (user.userType === 'customer') {
         res.redirect('/login');
       } else if (user.userType === 'cook'){
         var restaurant = new models.Restaurant({

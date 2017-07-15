@@ -23,8 +23,6 @@ var geocoder = NodeGeocoder({
 router.use(function(req, res, next) {
   if (!req.user) {
     res.redirect('/login');
-  // } else if (req.userType !== 'customer') {
-  //   res.redirect('/');
   } else {
     next();
   }
@@ -36,7 +34,7 @@ router.get('/', function(req, res) {
     console.log('theusertype is a customer')
     res.redirect('/restaurants')
   } else if (req.user.userType === 'cook') {
-    res.redirect(`/cook/${req.user._id}`)
+    res.redirect(`/cook`)
   } else {
     res.send('what the fuck')
   }
@@ -51,7 +49,6 @@ router.get('/restaurants', function(req, res) {
     })
 })
 
-
 router.get('/restaurants/:id', function(req, res) {
   var id = req.params.id
   Restaurant.findById(id, function(err, restaurant) {
@@ -64,7 +61,11 @@ router.get('/restaurants/:id', function(req, res) {
           console.log('error:' + err)
         } else {
           console.log('this is the returned' + reviews)
-          res.render('singleRestaurant', {
+          // res.render('singleRestaurant', {
+          //   restaurant: restaurant,
+          //   reviews: reviews
+          // })
+          res.render('detailInfo', {
             restaurant: restaurant,
             reviews: reviews
           })

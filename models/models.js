@@ -143,10 +143,10 @@ var restaurantSchema = mongoose.Schema({
   Spots: Number,
   IsOpen: Boolean,
   ClosingTime: Date,
-  Food: [{
+  Food: {
     description: String,
     photoUrl: String
-  }],
+  },
   Reviews:[
     {
       rating: Number,

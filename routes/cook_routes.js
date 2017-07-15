@@ -22,9 +22,8 @@ var geocoder = NodeGeocoder({
 // ANOTHER WALL - anything routes below this are DOUBLE protected!
 router.use(function(req, res, next) {
   if (req.user.userType === 'customer') {
+    console.log('You are a logged in customer, but you are trying to access routes that customers don\'t have access to!');
     res.redirect('/');
-    // } else if (req.userType !== 'customer') {
-    //   res.redirect('/');
   } else if (req.user.userType === 'cook') {
     next();
   } else {
@@ -33,51 +32,52 @@ router.use(function(req, res, next) {
 });
 
 
-router.get('/cook/:id',function(req,res){
-  User.findById(req.params.id, function(error, cook){
+router.get('/cook',function(req,res){
+  User.findById(req.user.id, function(error, cook){
     if(error){
       res.send(error)
     }
     else {
-      res.render('cook',{
+      res.render('customerList',{
         cook:cook
       });
     }
   });
 });
 
-router.get('/restaurants/new', function(req, res) {
-  res.render('newRestaurant')
+router.get('/cook/restaurant', function(req, res) {
+  res.render('postDish')
 })
 
+
 var addressData
-router.post('/restaurants/new', function(req, res) {
+router.post('/cook/restaurant', function(req, res) {
   var longitude;
   var latitude;
   // Geocoding - uncomment these lines when the README prompts you to!
-  geocoder.geocode(req.body.address, function(err, data) {
+  geocoder.geocode('San Francisco', function(err, data) {
     console.log(err);
     addressData = data[0]
     latitude = addressData.latitude
     longitude = addressData.longitude
-    new Restaurant({
-      Name: req.body.name,
-      Category: req.body.category,
-      Latitude: latitude,
-      Longitude: longitude,
-      Price: req.body.relativePrice,
-      isOpen: false,
-      // OpenTime: req.body.oTime,
-      // ClosingTime: req.body.cTime
-    }).save(function(err) {
-      if (err) {
-        console.log("error:", err)
-      } else {
-        console.log('Restaurant saved!')
-        res.redirect('/restaurants')
+    console.log("*********req.user", req.user);
+    //req.user.populate('Restaurant', function(err, user) {
+    var restaurantId = req.user.restaurant;
+    Restaurant.findById(restaurantId, function(err, restaurant){
+      if (err) {res.send(err)}
+      else {
+        //update
+        restaurant.Name = req.body.name;
+        restaurant.Category = req.body.category;
+        restaurant.latitude = latitude;
+        restaurant.longitude = longitude;
+        restaurant.Price = req.body.price;
+        restaurant.save(function(err) {
+          if (err) {res.send(err)}
+          else {res.redirect('/cook')}
+        });
       }
-    })
-
+    });
   });
 });
 
