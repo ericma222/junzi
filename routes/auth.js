@@ -7,15 +7,7 @@ var models = require('../models/models');
 
 module.exports = function(passport) {
 
-  // GET registration page
-  router.get('/', function(req, res) {
-    if (req.user) {
-      res.redirect('/restaurants')
-    }
-    else {
-      res.redirect('/login')
-    }
-  })
+
 
   router.get('/signup', function(req, res) {
     res.render('signup');
@@ -37,10 +29,10 @@ module.exports = function(passport) {
       //    passport is expecting a form field specifically named 'username'.
       //    There is a way to change the name it expects, but this is fine.
       displayName: req.body.displayName,
-      email: req.body.username,
+      userType: req.body.userType,
+      username: req.body.username,
       password: req.body.password
     });
-
     u.save(function(err, user) {
       if (err) {
         console.log(err);
@@ -48,7 +40,33 @@ module.exports = function(passport) {
         return;
       }
       console.log(user);
-      res.redirect('/login');
+      if (user.userType === 'consumer') {
+        res.redirect('/login');
+      } else if (user.userType === 'cook'){
+        var restaurant = new models.Restaurant({
+          // we can add restaurat information in here later
+        });
+        restaurant.save(function(err, restaurant) {
+          if (err) {
+            console.log(err);
+            res.status(500).redirect('/register');
+          } else {
+            user.restaurant = restaurant._id;
+            console.log('about to save the user again')
+            user.save(function(error){
+              if(error){
+                console.log(err);
+                res.status(500).redirect('/register');
+              }
+              else {
+                res.redirect('/login')
+              }
+            });
+          }
+        });
+      } else {
+        res.send('what the fuck');
+      }
     });
   });
 

@@ -5,11 +5,12 @@ var connect = process.env.MONGODB_URI || require('./connect');
 mongoose.connect(connect);
 
 var userSchema = mongoose.Schema({
-  email: String,
-  password: String,
-  /* Add other fields here */
   displayName: String,
+  userType: String,
+  username: String,
+  password: String,
   location: String,
+  restaurant: { type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant' },
   reviews: []
 });
 

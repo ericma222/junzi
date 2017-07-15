@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+       #map {
+        height: 400px;
+        width: 100%;
+       }
+    </style>
+  </head>
+  <body>
+    <h3>Welcome to Junzi</h3>
+    <div id="map"></div>
+    <script>
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: {lat: 38, lng: -121}
+        });
+
+        {{#each restaurants}}
+        var marker = addMarker({
+          lat: {{Latitude}},
+          lng: {{Longitude}}
+        });
+
+        var infoWindowContent =
+          '<h3 id="infoTitle">{{Name}}</h3><ul id="infoList"><li>{{Category}}</ul>'+
+          '<button type="button" class="btn btn-primary" id="viewDetail" value="Asuh dude">view detail</button>';
+        addInfoWindow(infoWindowContent, marker);
+
+        {{/each}}
+        // function
+        function addMarker(coords){
+          var marker = new google.maps.Marker({
+            position: coords,
+            map: map,
+            icon: "https://png.icons8.com/noodles/color/48"
+          });
+          return marker;
+        }
+
+        function addInfoWindow(content, marker){
+          var infoWindow = new google.maps.InfoWindow({
+            content: content
+          });
+
+          marker.addListener('click', function(){
+            infoWindow.open(map, marker);
+          });
+        }
+      }
+      console.log('JQuery is dead :(');
+      $('#viewDetail').click(function(event) {
+        console.log('JQuery is alive!!!');
+        alert('helo');
+        // $.ajax({
+        //   url:
+        // });
+      });
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCy90Gg4aENbYWE_KYE7lA-UZD653pL6S4&callback=initMap">
+    </script>
+  </body>
+</html>

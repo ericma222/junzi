@@ -7,8 +7,9 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var models = require('./models/models')
-var routes = require('./routes/index');
 var auth = require('./routes/auth');
+var customerRoutes = require('./routes/customer_routes');
+var cookRoutes = require('./routes/cook_routes')
 var MongoStore = require('connect-mongo/es5')(session);
 var mongoose = require('mongoose');
 var app = express();
@@ -50,8 +51,10 @@ passport.deserializeUser(function(id, done) {
 // passport strategy
 passport.use(new LocalStrategy(function(username, password, done) {
     // Find the user with the given username
-    models.User.findOne({ email: username }, function (err, user) {
+    console.log('Authorizing');
+    models.User.findOne({ username: username }, function (err, user) {
       // if there's an error, finish trying to authenticate (auth failed)
+      console.log('Finding user');
       if (err) {
         console.error(err);
         return done(err);
@@ -63,16 +66,19 @@ passport.use(new LocalStrategy(function(username, password, done) {
       }
       // if passwords do not match, auth failed
       if (user.password !== password) {
+        console.log('Wrong password');
         return done(null, false, { message: 'Incorrect password.' });
       }
       // auth has has succeeded
+      console.log('Auth has succeeded');
       return done(null, user);
     });
   }
 ));
 
 app.use('/', auth(passport));
-app.use('/', routes);
+app.use('/', customerRoutes);
+app.use('/', cookRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
